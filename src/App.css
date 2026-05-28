@@ -53,7 +53,7 @@ img {
   padding: 32px 20px;
 }
 
-.landing-hero {
+.background-image {
   width: min(1120px, 100%);
   min-height: 76vh;
   border-radius: 32px;
@@ -76,6 +76,10 @@ img {
   inset: 0;
   background: linear-gradient(135deg, rgba(15, 26, 20, 0.12), rgba(15, 26, 20, 0.38));
   pointer-events: none;
+}
+
+.landing-hero {
+  width: 100%;
 }
 
 .landing-content {
@@ -291,7 +295,7 @@ img {
 }
 
 .product-card,
-.about-us-card,
+.about-us-container,
 .cart-summary,
 .empty-state,
 .cart-row {
@@ -330,17 +334,17 @@ img {
   margin-bottom: 0;
 }
 
-.about-us-card {
+.about-us-container {
   margin-top: 28px;
   padding: 24px;
   background: var(--panel-strong);
 }
 
-.about-us-card h2 {
+.about-us-container h2 {
   margin-top: 0;
 }
 
-.about-us-card p {
+.about-us-container p {
   color: var(--muted);
   line-height: 1.7;
 }
@@ -473,7 +477,7 @@ img {
 }
 
 @media (max-width: 640px) {
-  .landing-hero {
+  .background-image {
     min-height: 82vh;
     padding: 20px;
   }

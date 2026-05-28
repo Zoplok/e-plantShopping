@@ -1,18 +1,22 @@
 export default function AboutUs() {
   return (
-    <section className="about-us-card" aria-labelledby="about-us-title">
+    <div className="about-us-container" aria-labelledby="about-us-title">
       <div className="section-kicker">About Paradise Nursery</div>
       <h2 id="about-us-title">Growing calm, color, and life into every home.</h2>
       <p>
-        Paradise Nursery is a neighborhood plant shop focused on healthy
-        houseplants, easy care guidance, and beautiful greenery for every space.
+        Paradise Nursery is a friendly neighborhood plant shop dedicated to
+        helping people bring healthy, beautiful greenery into their homes and
+        workspaces.
       </p>
       <p>
-        Our team curates indoor plants, outdoor favorites, and succulents that
-        are beginner-friendly, thoughtful gifts, and great long-term companions
-        for plant lovers.
+        Our mission is to make plant ownership simple and enjoyable by offering
+        curated houseplants, outdoor favorites, and beginner-friendly succulents
+        with care guidance for every purchase.
       </p>
-    </section>
+      <p>
+        We focus on quality plants, thoughtful service, and reliable support so
+        every customer can shop with confidence and keep their plants thriving.
+      </p>
+    </div>
   );
 }
-

@@ -5,52 +5,10 @@ import AboutUs from "./components/AboutUs.jsx";
 import CartItem from "./components/CartItem.jsx";
 import ProductList from "./components/ProductList.jsx";
 
-function CartSvg() {
-  return (
-    <svg className="cart-icon" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44A1 1 0 0 0 9.13 17H19v-2H9.42a.25.25 0 0 1-.22-.37L10.1 13h7.45a2 2 0 0 0 1.79-1.11L23 6H6.42l-.94-2zM9 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm8 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
-    </svg>
-  );
-}
-
-function Navbar({ currentView, onNavigate, cartCount }) {
-  return (
-    <nav className="navbar" aria-label="Primary">
-      <div className="navbar-brand">Paradise Nursery</div>
-      <div className="navbar-links">
-        <button
-          type="button"
-          className={`nav-link ${currentView === "landing" ? "active" : ""}`}
-          onClick={() => onNavigate("landing")}
-        >
-          Home
-        </button>
-        <button
-          type="button"
-          className={`nav-link ${currentView === "products" ? "active" : ""}`}
-          onClick={() => onNavigate("products")}
-        >
-          Plants
-        </button>
-        <button
-          type="button"
-          className={`nav-link ${currentView === "cart" ? "active" : ""}`}
-          onClick={() => onNavigate("cart")}
-        >
-          <span className="cart-pill">
-            <CartSvg />
-            <span>{cartCount}</span>
-          </span>
-        </button>
-      </div>
-    </nav>
-  );
-}
-
 function LandingPage({ onGetStarted }) {
   return (
     <section className="landing-page">
-      <div className="landing-hero">
+      <div className="background-image">
         <div className="landing-content">
           <div className="landing-brand">
             <span>Paradise Nursery</span>
@@ -73,34 +31,51 @@ function LandingPage({ onGetStarted }) {
 }
 
 function AppContent() {
-  const [currentView, setCurrentView] = useState("landing");
+  const [showProductList, setShowProductList] = useState(false);
+  const [showCart, setShowCart] = useState(false);
   const cartCount = useSelector((state) =>
     state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
   );
 
-  let page = <LandingPage onGetStarted={() => setCurrentView("products")} />;
+  const navigate = (view) => {
+    if (view === "landing") {
+      setShowProductList(false);
+      setShowCart(false);
+      return;
+    }
 
-  if (currentView === "products") {
-    page = <ProductList />;
+    if (view === "products") {
+      setShowProductList(true);
+      setShowCart(false);
+      return;
+    }
+
+    if (view === "cart") {
+      setShowProductList(true);
+      setShowCart(true);
+    }
+  };
+
+  let page = <LandingPage onGetStarted={() => setShowProductList(true)} />;
+
+  if (showProductList && !showCart) {
+    page = <ProductList onNavigate={navigate} cartCount={cartCount} />;
   }
 
-  if (currentView === "cart") {
-    page = <CartItem onContinueShopping={() => setCurrentView("products")} />;
+  if (showProductList && showCart) {
+    page = (
+      <CartItem
+        cartCount={cartCount}
+        onNavigate={navigate}
+        onContinueShopping={() => {
+          setShowCart(false);
+          setShowProductList(true);
+        }}
+      />
+    );
   }
 
-  return (
-    <div className="app-shell">
-      {currentView !== "landing" ? (
-        <Navbar
-          currentView={currentView}
-          onNavigate={setCurrentView}
-          cartCount={cartCount}
-        />
-      ) : null}
-      {page}
-    </div>
-  );
+  return <div className="app-shell">{page}</div>;
 }
 
 export default AppContent;
-

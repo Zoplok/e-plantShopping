@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  clearCart,
-  removeItem,
-  updateQuantity,
-} from "../store/CartSlice.jsx";
+import { clearCart, removeItem, updateQuantity } from "../CartSlice.jsx";
+import Navbar from "./Navbar.jsx";
 
-export default function CartItem({ onContinueShopping }) {
+export default function CartItem({ onContinueShopping, onNavigate, cartCount }) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
   const [checkoutMessage, setCheckoutMessage] = useState("");
@@ -18,6 +15,7 @@ export default function CartItem({ onContinueShopping }) {
 
   return (
     <main className="page-shell">
+      <Navbar currentView="cart" onNavigate={onNavigate} cartCount={cartCount} />
       <div className="page-intro">
         <div className="section-kicker">Cart</div>
         <h1>Your shopping cart</h1>

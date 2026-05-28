@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "../store/CartSlice.jsx";
+import { addItem } from "../CartSlice.jsx";
 import { plantCategories } from "../data/plantData.js";
+import Navbar from "./Navbar.jsx";
 
-export default function ProductList() {
+export default function ProductList({ onNavigate, cartCount }) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
 
@@ -10,6 +11,11 @@ export default function ProductList() {
 
   return (
     <main className="page-shell">
+      <Navbar
+        currentView="products"
+        onNavigate={onNavigate}
+        cartCount={cartCount}
+      />
       <div className="page-intro">
         <div className="section-kicker">Plants</div>
         <h1>Choose from our curated plant collection</h1>

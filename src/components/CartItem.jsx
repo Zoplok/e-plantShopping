@@ -2,9 +2,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearCart,
-  decreaseQuantity,
-  increaseQuantity,
-  removeFromCart,
+  removeItem,
+  updateQuantity,
 } from "../store/CartSlice.jsx";
 
 export default function CartItem({ onContinueShopping }) {
@@ -72,7 +71,7 @@ export default function CartItem({ onContinueShopping }) {
                   <button
                     type="button"
                     className="quantity-button"
-                    onClick={() => dispatch(decreaseQuantity(item.id))}
+                    onClick={() => dispatch(updateQuantity({ id: item.id, change: -1 }))}
                   >
                     -
                   </button>
@@ -80,7 +79,7 @@ export default function CartItem({ onContinueShopping }) {
                   <button
                     type="button"
                     className="quantity-button"
-                    onClick={() => dispatch(increaseQuantity(item.id))}
+                    onClick={() => dispatch(updateQuantity({ id: item.id, change: 1 }))}
                   >
                     +
                   </button>
@@ -88,7 +87,7 @@ export default function CartItem({ onContinueShopping }) {
                 <button
                   type="button"
                   className="remove-button"
-                  onClick={() => dispatch(removeFromCart(item.id))}
+                  onClick={() => dispatch(removeItem(item.id))}
                 >
                   Delete
                 </button>
@@ -112,4 +111,3 @@ export default function CartItem({ onContinueShopping }) {
     </main>
   );
 }
-

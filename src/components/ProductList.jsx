@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../store/CartSlice.jsx";
+import { addItem } from "../store/CartSlice.jsx";
 import { plantCategories } from "../data/plantData.js";
 
 export default function ProductList() {
@@ -43,7 +43,7 @@ export default function ProductList() {
                     <button
                       type="button"
                       className="primary-button"
-                      onClick={() => dispatch(addToCart(product))}
+                      onClick={() => dispatch(addItem(product))}
                       disabled={disabled}
                     >
                       {disabled ? "Added to Cart" : "Add to Cart"}
@@ -58,4 +58,3 @@ export default function ProductList() {
     </main>
   );
 }
-
